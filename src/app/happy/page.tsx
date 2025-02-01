@@ -3,11 +3,25 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { Star, X, Smile, Mail } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Page() {
   const [email, setEmail] = useState('')
   const [showThankYou, setShowThankYou] = useState(false)
+
+  const [stars, setStars] = useState<
+    { left: string; top: string; color: string }[]
+  >([])
+
+  useEffect(() => {
+    const colors = ['#FFD1DC', '#E6E6FA', '#87CEEB', '#98FB98']
+    const newStars = Array.from({ length: 12 }, (_, i) => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      color: colors[i % colors.length],
+    }))
+    setStars(newStars)
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -19,7 +33,7 @@ export default function Page() {
     <div className="min-h-screen bg-[#faf6f6] p-8 relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(12)].map((_, i) => (
+        {stars.map((_, i) => (
           <motion.div
             key={Number(i)}
             className="absolute"
