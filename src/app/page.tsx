@@ -1,9 +1,16 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 export default function Home() {
+  const route = useRouter()
+
+  const happy = () => {
+    console.log('uai')
+    route.push('/happy')
+  }
   return (
     <div className="min-h-screen bg-yellow-400">
       <div className="container mx-auto px-4">
@@ -53,7 +60,32 @@ export default function Home() {
             RECENT_PROJECTS
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
-            {[1, 2, 3, 4].map(project => (
+            <motion.div
+              key={'happy01'}
+              className="bg-white p-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => happy()}
+            >
+              <div className="h-8 bg-black mb-4 flex items-center px-2">
+                <div className="w-3 h-3 bg-white rounded-full mr-2" />
+                <div className="w-3 h-3 bg-white rounded-full mr-2" />
+                <div className="w-3 h-3 bg-white rounded-full" />
+              </div>
+              <div className="aspect-video bg-gray-200 mb-4">
+                <Image
+                  src="/project/happy01.png"
+                  alt="Happy01.exe"
+                  width={700}
+                  height={700}
+                  className="mx-auto mb-8 object-fill"
+                />
+              </div>
+              <h3 className="font-mono font-bold mb-2">PROJECT_HAPPY01.EXE</h3>
+              <p className="font-mono text-sm">A submit page clean.</p>
+            </motion.div>
+
+            {[1, 2, 3].map(project => (
               <motion.div
                 key={project}
                 className="bg-white p-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
